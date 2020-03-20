@@ -24,24 +24,24 @@ export default function Menu(){
     )
   }
 
-  document.addEventListener('DOMContentLoaded',() =>{
-    const hamburger = document.querySelector('.header-top__menu');
-    const menu = document.querySelector('.menu');
-    // const body = document.querySelector('body');
+// document.addEventListener('DOMContentLoaded',() =>{
+//   const hamburger = document.querySelector('.header-top__menu');
+//   const menu = document.querySelector('.menu');
+//   // const body = document.querySelector('body');
 
-    // 
-    hamburger.addEventListener('click', ()=>{
-      hamburger.classList.toggle('header-top__menu-hidden');
-      menu.classList.toggle('menu-visible');
-      // body.classList.toggle('blured');
-    });
+//   // 
+//   hamburger.addEventListener('click', ()=>{
+//     hamburger.classList.toggle('header-top__menu-hidden');
+//     menu.classList.toggle('menu-visible');
+//     // body.classList.toggle('blured');
+//   });
 
-    menu.addEventListener('mouseleave',(e)=>{
-      menu.classList.toggle('menu-visible');
-      hamburger.classList.toggle('header-top__menu-hidden');
-    });
+//   menu.addEventListener('mouseleave',(e)=>{
+//     menu.classList.toggle('menu-visible');
+//     hamburger.classList.toggle('header-top__menu-hidden');
+//   });
 
 
 
-    
-});
+  
+// });
