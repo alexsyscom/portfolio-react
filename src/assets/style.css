@@ -23,9 +23,9 @@ html{
 
 .header{
     background-image: 
-        url(icons/about_bg_left.png),
-        url(icons/about_bg_right.png), 
-        url(photo/header_background_1800.png);
+        url(../assets/icons/about_bg_left.png),
+        url(../assets/icons/about_bg_right.png), 
+        url(../assets/photo/header_background_1800.png);
     background-repeat: no-repeat;
     background-size: 50% 500px, 52% 500px, 100% 1080px;
     background-position: 0% 269%, 103% 270%, 100% 0%;
@@ -92,7 +92,7 @@ html{
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    background: url("icons/stars.png") no-repeat center;
+    background: url(../assets/icons/stars.png) no-repeat center;
     height: 330px;
     color: white;
 }
@@ -145,7 +145,7 @@ main{
     width: 50%;
 }
 .left-side__caption{
-    background-image: url(icons/stars_left_side.png);
+    background-image: url(../assets/icons/stars_left_side.png);
     background-repeat: no-repeat;
     background-size: contain;
     background-position: center;
@@ -233,7 +233,7 @@ main{
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    background-image: url("icons/map.png");
+    background-image: url(../assets/icons/map.png);
     background-repeat: no-repeat;
     background-size: cover;
     height: 800px;
@@ -342,7 +342,7 @@ a:active {
 
 @media screen and (max-width: 719px) {
     .header{
-        background-image: url(photo/header_background_1800.png);
+        background-image: url(../assets/photo/header_background_1800.png);
         background-repeat: no-repeat;
         background-size: 100% 100%;
         background-position: 100% 0%;
