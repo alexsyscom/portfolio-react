@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import About from "../About/About";
 import Blog from "../Blog/Blog";
 
-export default function() {
+export default function () {
   return (
     <Router>
       <Switch>

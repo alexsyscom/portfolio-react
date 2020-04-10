@@ -6,7 +6,7 @@ import Main from "../Main/Main";
 import Contacts from "../Contacts/Contacts";
 import Footer from "../Footer/Footer";
 
-export default function() {
+export default function () {
   return (
     <>
       <Header />

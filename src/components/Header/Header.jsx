@@ -4,15 +4,15 @@ import Menu from "../Menu/Menu";
 import Avatar from "../Avatar/Avatar";
 import Arrow from "../Arrow/Arrow";
 
-export default function() {
+export default function (props) {
   return (
-    <header className="header">
+    <header className={props.blog ? "header header_blog" : "header"}>
       <div className="header-top">
         <SocialNetworks />
         <Menu />
       </div>
-      <Avatar />
-      <Arrow />
+      <Avatar {...props} />
+      <Arrow {...props} />
     </header>
   );
 }

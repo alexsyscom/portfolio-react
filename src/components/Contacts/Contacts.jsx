@@ -1,61 +1,82 @@
 import React from "react";
-import Service from "../../assets/service";
+import Service from "../../service";
 
-export default function(props) {
-  let service = new Service();
-  const contactsList = service.getContacts().map((item, index) => {
+export default class extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isLoading: true,
+      contacts: [],
+    };
+  }
+
+  static displayName = "Contacts";
+
+  componentDidMount() {
+    const service = new Service();
+    const contacts = service.getContacts();
+    this.setState({ isLoading: false, contacts: contacts });
+  }
+
+  render() {
+    const contactsList = !this.state.isLoading
+      ? this.state.contacts.map((item, index) => {
+          return (
+            <div
+              className={
+                this.props.itemsModificator
+                  ? "contacts-items__item " + this.props.itemsModificator
+                  : "contacts-items__item"
+              }
+              key={index}
+            >
+              <img
+                src={item.img}
+                alt={item.alt}
+                className={this.props.itemImageModificator}
+              />
+              <a
+                href={item.link}
+                className={
+                  this.props.itemLinkModificator
+                    ? "contacts-items__item__link " +
+                      this.props.itemLinkModificator
+                    : "contacts-items__item__link"
+                }
+              >
+                {item.title}
+              </a>
+            </div>
+          );
+        })
+      : null;
+
     return (
       <div
         className={
-          props.itemsModificator
-            ? "contacts-items__item " + props.itemsModificator
-            : "contacts-items__item"
+          this.props.contactsModificator
+            ? "contacts " + this.props.contactsModificator
+            : "contacts"
         }
-        key={index}
       >
-        <img
-          src={item.img}
-          alt={item.alt}
-          className={props.itemImageModificator}
-        />
-        <a
-          href={item.link}
+        {this.props.title && (
+          <>
+            <div className="caption">
+              <h2 className="caption__title">{this.props.title}</h2>
+              <div className="caption__decorator"></div>
+            </div>
+          </>
+        )}
+        <div
           className={
-            props.itemLinkModificator
-              ? "contacts-items__item__link " + props.itemLinkModificator
-              : "contacts-items__item__link"
+            this.props.itemsModificator
+              ? "contacts-items " + this.props.itemsModificator
+              : "contacts-items"
           }
         >
-          {item.title}
-        </a>
+          {contactsList}
+        </div>
       </div>
     );
-  });
-  return (
-    <div
-      className={
-        props.contactsModificator
-          ? "contacts " + props.contactsModificator
-          : "contacts"
-      }
-    >
-      {props.title && (
-        <>
-          <div className="caption">
-            <h2 className="caption__title">{props.title}</h2>
-            <div className="caption__decorator"></div>
-          </div>
-        </>
-      )}
-      <div
-        className={
-          props.itemsModificator
-            ? "contacts-items " + props.itemsModificator
-            : "contacts-items"
-        }
-      >
-        {contactsList}
-      </div>
-    </div>
-  );
+  }
 }

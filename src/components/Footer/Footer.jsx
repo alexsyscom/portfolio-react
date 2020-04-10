@@ -3,7 +3,7 @@ import Sitemap from "../Sitemap/Sitemap";
 import SocialNetworks from "../SocialNetworks/SocialNetworks";
 import Contacts from "../Contacts/Contacts";
 
-export default function() {
+export default function () {
   return (
     <footer>
       <div className="footer">
