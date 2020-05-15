@@ -1,6 +1,8 @@
 import React from "react";
 import Service from "../../service";
 
+import { Styled } from "./styled";
+
 export default class extends React.Component {
   constructor() {
     super();
@@ -24,14 +26,14 @@ export default class extends React.Component {
     const buttonsList = !this.state.isLoading
       ? this.state.data.map((item) => {
           return (
-            <li className="social-networks__item" key={item.id.toString()}>
+            <Styled.SocialNetworksItem key={item.id.toString()}>
               <a href={item.link}>
                 <img src={item.img} alt={item.alt} />
               </a>
-            </li>
+            </Styled.SocialNetworksItem>
           );
         })
       : null;
-    return <ul className="social-networks">{buttonsList}</ul>;
+    return <Styled.SocialNetworks>{buttonsList}</Styled.SocialNetworks>;
   }
 }

@@ -1,6 +1,9 @@
 import React from "react";
 import Service from "../../service";
 
+//Import styles from styled component
+import { Styled } from "./styled";
+
 export default class extends React.Component {
   constructor(props) {
     super(props);
@@ -20,15 +23,11 @@ export default class extends React.Component {
 
   render() {
     const output = !this.state.isLoading ? (
-      <div className="arrow">
-        <a
-          href="#main"
-          title="Scroll down to main content"
-          className="arrow__link"
-        >
+      <Styled.Arrow>
+        <a href="#main" title="Scroll down to main content">
           <img src={this.state.imgsrc} alt="arrow_down" id="arrow" />
         </a>
-      </div>
+      </Styled.Arrow>
     ) : null;
     return output;
   }

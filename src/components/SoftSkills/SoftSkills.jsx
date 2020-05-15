@@ -1,6 +1,8 @@
 import React from "react";
 import Service from "../../service";
 
+import { Styled } from "./styled";
+
 export default class extends React.Component {
   constructor() {
     super();
@@ -24,39 +26,31 @@ export default class extends React.Component {
       let softskills = value.map((item, index) => {
         return (
           <React.Fragment key={index}>
-            <div
-              className="soft-skills__single-chart"
-              key={Math.random().toString()}
-            >
-              <svg
-                viewBox="-1 -1 38 38"
-                className="soft-skills__circular-chart"
-              >
-                <path
-                  className="soft-skills__circle-bg"
+            <div key={Math.random().toString()}>
+              <Styled.SoftSkillsCircularChart viewBox="-1 -1 38 38">
+                <Styled.SoftSkillsCircalBg
                   d="M18 2.0845
                                       a 15.9155 15.9155 0 0 1 0 31.831
                                       a 15.9155 15.9155 0 0 1 0 -31.831"
                 />
-                <path
-                  className="soft-skills__circle"
+                <Styled.SoftSkillsCircle
                   strokeDasharray={item.persentage + ", 100"}
                   d="M18 2.0845
                                       a 15.9155 15.9155 0 0 1 0 31.831
                                       a 15.9155 15.9155 0 0 1 0 -31.831"
                 />
-                <text x="18" y="20.35" className="soft-skills__percentage">
+                <Styled.SoftSkillsPersentage x="18" y="20.35">
                   {item.title}
-                </text>
-              </svg>
+                </Styled.SoftSkillsPersentage>
+              </Styled.SoftSkillsCircularChart>
             </div>
           </React.Fragment>
         );
       });
       let softSkillItem = (
         <React.Fragment key={Math.random().toString()}>
-          <h3 className="title">{key}</h3>
-          <div className="soft-skills">{softskills}</div>
+          <Styled.Title>{key}</Styled.Title>
+          <Styled.SoftSkills>{softskills}</Styled.SoftSkills>
         </React.Fragment>
       );
       softSkillItems.push(softSkillItem);

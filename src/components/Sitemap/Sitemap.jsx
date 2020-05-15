@@ -1,6 +1,8 @@
 import React from "react";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import Service from "../../service";
+
+import { Styled } from "./styled";
 
 export default class extends React.Component {
   constructor() {
@@ -10,6 +12,8 @@ export default class extends React.Component {
       siteMapData: "",
     };
   }
+  static displayName = "Sitemap";
+
   componentDidMount() {
     const service = new Service();
     const siteMapData = service.getSitemap();
@@ -22,14 +26,12 @@ export default class extends React.Component {
     const siteMapList = !this.state.isLoading
       ? this.state.siteMapData.map((item, index) => {
           return (
-            <li className="site-map__items__item" key={index.toString()}>
-              <Link to={item.link} style={{ color: "white" }}>
-                {item.title}
-              </Link>
-            </li>
+            <Styled.SiteMapItemsItem key={index.toString()}>
+              <Styled.WhiteLink to={item.link}>{item.title}</Styled.WhiteLink>
+            </Styled.SiteMapItemsItem>
           );
         })
       : null;
-    return <ul className="site-map__items">{siteMapList}</ul>;
+    return <Styled.SiteMapItems>{siteMapList}</Styled.SiteMapItems>;
   }
 }

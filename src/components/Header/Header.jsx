@@ -4,15 +4,18 @@ import Menu from "../Menu/Menu";
 import Avatar from "../Avatar/Avatar";
 import Arrow from "../Arrow/Arrow";
 
+//Import styles from styled component
+import { Styled } from "./styled";
+
 export default function (props) {
   return (
-    <header className={props.blog ? "header header_blog" : "header"}>
-      <div className="header-top">
+    <Styled.Header blog={props.blog ? true : false} id="header">
+      <Styled.HeaderTop>
         <SocialNetworks />
         <Menu />
-      </div>
+      </Styled.HeaderTop>
       <Avatar {...props} />
       <Arrow {...props} />
-    </header>
+    </Styled.Header>
   );
 }

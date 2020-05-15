@@ -1,13 +1,16 @@
 import React from "react";
 
+//Import styles from styled component
+import { Styled } from "./styled";
+
 export default function (props) {
   return (
     <>
-      <div className="caption">
-        <h2 className="caption__title">{props.conf.title}</h2>
-        <div className="caption__decorator"></div>
-      </div>
-      <div className="description">{props.conf.description}</div>
+      <Styled.Caption>
+        <h2>{props.conf.title}</h2>
+        <Styled.CaptionDecorator />
+      </Styled.Caption>
+      <Styled.Description>{props.conf.description}</Styled.Description>
     </>
   );
 }

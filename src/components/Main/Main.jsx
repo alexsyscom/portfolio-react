@@ -3,6 +3,9 @@ import Caption from "../Caption/Caption";
 import SoftSkills from "../SoftSkills/SoftSkills";
 import Service from "../../service";
 
+//Import styles from styled component
+import { Styled } from "./styled";
+
 export default class extends React.Component {
   constructor() {
     super();
@@ -29,23 +32,19 @@ export default class extends React.Component {
   render() {
     let output = !this.state.isLoading ? (
       <main id="main">
-        <section className="left-side">
-          <div className="left-side__caption">
+        <Styled.LeftSide>
+          <Styled.LeftSideCaption>
             <h1>ОБО МНЕ</h1>
-          </div>
-          <div className="about-me">
-            <img
-              src={this.state.myPhoto}
-              alt="This is I am"
-              className="about-me__my-photo"
-            />
+          </Styled.LeftSideCaption>
+          <Styled.AboutMe>
+            <Styled.AboutMePhoto src={this.state.myPhoto} alt="This is I am" />
             <Caption conf={this.state.leftSideData} />
-          </div>
-        </section>
-        <section className="right-side">
+          </Styled.AboutMe>
+        </Styled.LeftSide>
+        <Styled.RightSide>
           <Caption conf={this.state.rightSideData} />
           <SoftSkills />
-        </section>
+        </Styled.RightSide>
       </main>
     ) : null;
     return output;

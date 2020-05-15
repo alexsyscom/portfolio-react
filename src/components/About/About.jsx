@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
+//Import styles from styled component
+import { Styled } from "./styled";
 
 //Import Components
 import Header from "../Header/Header";
@@ -7,14 +9,18 @@ import Contacts from "../Contacts/Contacts";
 import Footer from "../Footer/Footer";
 
 export default function () {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <>
       <Header />
       <Main />
-      <section className="map">
+      <Styled.MapSection>
         <Contacts title="КОНТАКТЫ" />
         <Footer />
-      </section>
+      </Styled.MapSection>
     </>
   );
 }

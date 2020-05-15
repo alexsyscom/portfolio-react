@@ -1,6 +1,9 @@
 import React from "react";
 import Service from "../../service";
 
+//Import styles from styled component
+import { Styled } from "./styled";
+
 export default class extends React.Component {
   constructor(props) {
     super(props);
@@ -22,61 +25,37 @@ export default class extends React.Component {
     const contactsList = !this.state.isLoading
       ? this.state.contacts.map((item, index) => {
           return (
-            <div
-              className={
-                this.props.itemsModificator
-                  ? "contacts-items__item " + this.props.itemsModificator
-                  : "contacts-items__item"
-              }
-              key={index}
-            >
-              <img
+            <Styled.ContactsItemsItem key={index} footer={this.props.footer}>
+              <Styled.ContactsItemsItemImage
                 src={item.img}
                 alt={item.alt}
-                className={this.props.itemImageModificator}
+                footer={this.props.footer}
               />
-              <a
+              <Styled.ContactsItemsItemLink
                 href={item.link}
-                className={
-                  this.props.itemLinkModificator
-                    ? "contacts-items__item__link " +
-                      this.props.itemLinkModificator
-                    : "contacts-items__item__link"
-                }
+                footer={this.props.footer}
               >
                 {item.title}
-              </a>
-            </div>
+              </Styled.ContactsItemsItemLink>
+            </Styled.ContactsItemsItem>
           );
         })
       : null;
 
     return (
-      <div
-        className={
-          this.props.contactsModificator
-            ? "contacts " + this.props.contactsModificator
-            : "contacts"
-        }
-      >
+      <Styled.Contacts footer={this.props.footer}>
         {this.props.title && (
           <>
-            <div className="caption">
-              <h2 className="caption__title">{this.props.title}</h2>
-              <div className="caption__decorator"></div>
-            </div>
+            <Styled.Caption>
+              <h2>{this.props.title}</h2>
+              <Styled.CaptionDecorator />
+            </Styled.Caption>
           </>
         )}
-        <div
-          className={
-            this.props.itemsModificator
-              ? "contacts-items " + this.props.itemsModificator
-              : "contacts-items"
-          }
-        >
+        <Styled.ContactsItems footer={this.props.footer}>
           {contactsList}
-        </div>
-      </div>
+        </Styled.ContactsItems>
+      </Styled.Contacts>
     );
   }
 }

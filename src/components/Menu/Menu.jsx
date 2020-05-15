@@ -1,13 +1,8 @@
 import React from "react";
-// import { Link } from "react-router-dom";
 import Service from "../../service";
-import {
-  Menu,
-  MenuItems,
-  StyledLink,
-  StyledUl,
-  HeaderTopMenu,
-} from "../../styled-components/styled";
+
+//Import styles from styled component
+import { Styled } from "./styled";
 
 export default class extends React.Component {
   constructor() {
@@ -35,28 +30,28 @@ export default class extends React.Component {
   render() {
     const output = !this.state.isLoading ? (
       <>
-        <HeaderTopMenu onClick={this.handlerMouseEnter}>
+        <Styled.HeaderTopMenu onClick={this.handlerMouseEnter}>
           <img src={this.state.imgsrc} alt="menu" />
-        </HeaderTopMenu>
-        <Menu
+        </Styled.HeaderTopMenu>
+        <Styled.Menu
           onMouseLeave={this.handlerMouseLeave}
           visible={this.state.isMenuVisible}
         >
           <nav>
-            <StyledUl>
-              <MenuItems>
-                <StyledLink to="/" onClick={this.handlerMouseLeave}>
+            <Styled.MenuUl>
+              <Styled.MenuItems>
+                <Styled.MenuLink to="/" onClick={this.handlerMouseLeave}>
                   Главная
-                </StyledLink>
-              </MenuItems>
-              <MenuItems>
-                <StyledLink to="/Blog" onClick={this.handlerMouseLeave}>
+                </Styled.MenuLink>
+              </Styled.MenuItems>
+              <Styled.MenuItems>
+                <Styled.MenuLink to="/Blog" onClick={this.handlerMouseLeave}>
                   Блог
-                </StyledLink>
-              </MenuItems>
-            </StyledUl>
+                </Styled.MenuLink>
+              </Styled.MenuItems>
+            </Styled.MenuUl>
           </nav>
-        </Menu>
+        </Styled.Menu>
       </>
     ) : null;
     return output;

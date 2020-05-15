@@ -1,6 +1,9 @@
 import React from "react";
 import Service from "../../service";
 
+//Import styles from styled component
+import { Styled } from "./styled";
+
 export default class extends React.Component {
   constructor(props) {
     super(props);
@@ -36,13 +39,13 @@ export default class extends React.Component {
 
   render() {
     const output = !this.state.isLoading ? (
-      <div className="avatar">
-        <img src={this.state.imgsrc} alt="me" className="avatar__photo" />
-        <div className="avatar__sign">
-          <span className="avatar__fullname">{this.state.capture}</span>
+      <Styled.Avatar>
+        <Styled.AvatarPhoto src={this.state.imgsrc} alt="me" />
+        <Styled.AvatarSign>
+          <Styled.AvatarFullname>{this.state.capture}</Styled.AvatarFullname>
           {this.state.sign}
-        </div>
-      </div>
+        </Styled.AvatarSign>
+      </Styled.Avatar>
     ) : null;
     return output;
   }

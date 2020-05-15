@@ -13,12 +13,14 @@ export default class extends React.Component {
     };
   }
   componentDidMount() {
+    window.scrollTo(0, 0);
     const service = new Service();
     const posts = service.getPosts();
     this.setState({
       isLoading: false,
       data: posts,
     });
+
   }
 
   render() {
