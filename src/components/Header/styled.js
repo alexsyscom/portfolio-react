@@ -1,14 +1,17 @@
 import styled from "styled-components";
-import headerBackground from "../../assets/photo/header_background_1800.png";
-import blogBg from "../../assets/icons/bg_blog.png";
-import aboutRight from "../../assets/icons/about_bg_right.png";
-import aboutLeft from "../../assets/icons/about_bg_left.png";
+import { screenTabletMin } from "../../assets/breakpoints";
 
-const Header = styled.div`
+//import images
+import headerBg from "../../assets/photo/header_background_1800.png";
+import blogBg from "../../assets/icons/bg_blog.png";
+import aboutRightBg from "../../assets/icons/about_bg_right.png";
+import aboutLeftBg from "../../assets/icons/about_bg_left.png";
+
+const HeaderWrapper = styled.div`
   background-image: ${(props) =>
     props.blog
-      ? `url(${blogBg}),url(${headerBackground})`
-      : `url(${aboutLeft}),url(${aboutRight}),url(${headerBackground})`};
+      ? `url(${blogBg}),url(${headerBg})`
+      : `url(${aboutLeftBg}),url(${aboutRightBg}),url(${headerBg})`};
   background-repeat: no-repeat;
   background-size: ${(props) =>
     props.blog
@@ -17,8 +20,8 @@ const Header = styled.div`
   background-position: ${(props) =>
     props.blog ? "0% -190%, 100% 56%" : "0% 269%, 103% 270%, 100% 0%"};
   height: ${(props) => (props.blog ? "430px" : "730px")};
-  @media screen and (max-width: 719px) {
-    background-image: url(${headerBackground});
+  @media screen and (max-width: ${screenTabletMin}) {
+    background-image: url(${headerBg});
     background-repeat: no-repeat;
     background-size: 100% 100%;
     background-position: 100% 0%;
@@ -35,7 +38,4 @@ const HeaderTop = styled.div`
   align-items: center;
 `;
 
-export const Styled = {
-  Header,
-  HeaderTop,
-};
+export { HeaderWrapper, HeaderTop };

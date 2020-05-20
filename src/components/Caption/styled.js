@@ -1,6 +1,8 @@
 import styled from "styled-components";
+import { screenTabletMin } from "../../assets/breakpoints"
 
-const Caption = styled.div`
+
+const CaptionWrapper = styled.div`
   width: 260px;
   display: flex;
   flex-direction: column;
@@ -14,13 +16,13 @@ const CaptionDecorator = styled.div`
 const Description = styled.div`
   padding: 5px;
   margin-bottom: 20px;
-  @media screen and (max-width: 719px) {
+  @media screen and (max-width: ${screenTabletMin}) {
     padding: 10px;
   }
 `;
 
-export const Styled = {
-  Caption,
+export {
+  CaptionWrapper,
   CaptionDecorator,
-  Description,
+  Description
 };

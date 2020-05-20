@@ -1,7 +1,9 @@
 import styled from "styled-components";
+import { screenDesktopMin } from "../../assets/breakpoints";
+import { grayHighLight, blueDark } from "../../assets/colors";
 
 const MainBlog = styled.main`
-  background-color: #faf8f1;
+  background-color: ${grayHighLight};
 `;
 
 const MainBlogLiftSide = styled.section`
@@ -9,7 +11,7 @@ const MainBlogLiftSide = styled.section`
   height: 100%;
   position: sticky;
   top: 0;
-  @media screen and (max-width: 960px) {
+  @media screen and (max-width: ${screenDesktopMin}) {
     display: none;
   }
 `;
@@ -17,7 +19,7 @@ const MainBlogRightSide = styled.section`
   width: 70%;
   height: 100%;
   padding-left: 40px;
-  @media screen and (max-width: 960px) {
+  @media screen and (max-width: ${screenDesktopMin}) {
     width: 100%;
     padding-left: 20px;
   }
@@ -37,24 +39,26 @@ const BlogItems = styled.li`
   padding: 10px;
   transition: 0.3s;
   &:hover {
-    border-right: 3px solid #083c96;
+    border-right: 3px solid ${blueDark};
   }
-  &.active {
-    color: #083c96;
+  /* &.active > a {
+    color: ${blueDark};
+  } */
+`;
+const BlogItemsActive = styled(BlogItems)`
+    color: ${blueDark};
     font-weight: bold;
-    border-right: 3px solid #083c96;
-  }
-  &.active > a {
-    color: #083c96;
-  }
+    border-right: 3px solid ${blueDark};
 `;
 const BlogItemsLink = styled.a`
-  /* text-decoration: none; */
   color: black;
   &:hover {
-    color: #083c96;
+    color: ${blueDark};
     font-weight: bold;
   }
+`;
+const BlogItemsLinkActive = styled(BlogItemsLink)`
+  color: ${blueDark};
 `;
 const Post = styled.div`
   display: flex;
@@ -76,13 +80,15 @@ const PostContent = styled.div`
   border-bottom: 4px solid lightgrey;
 `;
 
-export const Styled = {
+export {
   MainBlog,
   MainBlogLiftSide,
   MainBlogRightSide,
   BlogTitles,
   BlogItems,
+  BlogItemsActive,
   BlogItemsLink,
+  BlogItemsLinkActive,
   Post,
   PostDate,
   PostContent,

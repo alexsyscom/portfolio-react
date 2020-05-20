@@ -1,21 +1,28 @@
 import React from "react";
+import PropTypes from "prop-types";
 import SocialNetworks from "../SocialNetworks/SocialNetworks";
 import Menu from "../Menu/Menu";
-import Avatar from "../Avatar/Avatar";
 import Arrow from "../Arrow/Arrow";
+import Avatar from "../Avatar/Avatar";
 
 //Import styles from styled component
-import { Styled } from "./styled";
+import { HeaderWrapper, HeaderTop } from "./styled";
 
-export default function (props) {
+const Header = (props) => {
   return (
-    <Styled.Header blog={props.blog ? true : false} id="header">
-      <Styled.HeaderTop>
+    <HeaderWrapper blog={props.blog ? true : false}>
+      <HeaderTop>
         <SocialNetworks />
         <Menu />
-      </Styled.HeaderTop>
+      </HeaderTop>
       <Avatar {...props} />
       <Arrow {...props} />
-    </Styled.Header>
+    </HeaderWrapper>
   );
-}
+};
+
+Header.propTypes = {
+  blog: PropTypes.bool,
+};
+
+export default Header;

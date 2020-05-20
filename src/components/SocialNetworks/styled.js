@@ -1,12 +1,13 @@
 import styled from "styled-components";
+import { screenTabletMin } from "../../assets/breakpoints";
 
-const SocialNetworks = styled.ul`
+const SocialNetworksWrapper = styled.ul`
   display: flex;
   justify-content: flex-start;
   align-items: center;
   padding-left: 10px;
   width: auto;
-  @media screen and (max-width: 719px) {
+  @media screen and (max-width: ${screenTabletMin}) {
     justify-content: center;
   }
 `;
@@ -17,7 +18,7 @@ const SocialNetworksItem = styled.li`
   list-style: none;
 `;
 
-export const Styled = {
-  SocialNetworks,
+export {
+  SocialNetworksWrapper,
   SocialNetworksItem,
 };

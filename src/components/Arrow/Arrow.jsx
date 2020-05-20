@@ -1,34 +1,26 @@
-import React from "react";
-import Service from "../../service";
+import React, { useState, useEffect } from "react";
+import PropTypes from "prop-types";
+import arrowImg from "../../assets/icons/arrow_down.png";
+import ArrowWrapper from "./styled";
 
-//Import styles from styled component
-import { Styled } from "./styled";
+const Arrow = (props) => {
+  const [isLoading, setLoading] = useState(null);
 
-export default class extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isLoading: null,
-      imgsrc: "",
-    };
-  }
+  useEffect(() => {
+    props.blog ? setLoading(true) : setLoading(false);
+  }, [props.blog]);
 
-  componentDidMount() {
-    const service = new Service();
-    const data = service.getArrowImage();
-    this.props.blog
-      ? this.setState({ isLoading: true })
-      : this.setState({ isLoading: false, imgsrc: data });
-  }
+  return !isLoading ? (
+    <ArrowWrapper>
+      <a href="#main" title="Scroll down to main content">
+        <img src={arrowImg} alt="arrow_down" id="arrow" />
+      </a>
+    </ArrowWrapper>
+  ) : null;
+};
 
-  render() {
-    const output = !this.state.isLoading ? (
-      <Styled.Arrow>
-        <a href="#main" title="Scroll down to main content">
-          <img src={this.state.imgsrc} alt="arrow_down" id="arrow" />
-        </a>
-      </Styled.Arrow>
-    ) : null;
-    return output;
-  }
-}
+Arrow.propTypes = {
+  blog: PropTypes.bool,
+};
+
+export default Arrow;

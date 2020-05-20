@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { screenTabletMin,screenDesktopMin } from "../../assets/breakpoints";
 import { Link } from "react-router-dom";
 
 const SiteMapItems = styled.ul`
@@ -6,7 +7,7 @@ const SiteMapItems = styled.ul`
   align-items: flex-start;
   flex-wrap: wrap;
   padding-inline-start: 5px;
-  @media screen and (max-width: 719px) {
+  @media screen and (max-width: ${screenTabletMin}) {
     justify-content: center;
   }
 `;
@@ -15,7 +16,7 @@ const SiteMapItemsItem = styled.li`
   margin: 10px;
   padding-right: 20px;
   list-style: none;
-  @media screen and (min-width: 720px) and (max-width: 960px) {
+  @media screen and (min-width: ${screenTabletMin}) and (max-width: ${screenDesktopMin}) {
     justify-content: center;
   }
 `;
@@ -24,7 +25,7 @@ const WhiteLink = styled(Link)`
   color: white;
 `;
 
-export const Styled = {
+export {
   SiteMapItems,
   SiteMapItemsItem,
   WhiteLink

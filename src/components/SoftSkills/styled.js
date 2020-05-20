@@ -1,20 +1,21 @@
 import styled from "styled-components";
+import { screenTabletMin, screenDesktopMin } from "../../assets/breakpoints";
 
 const Title = styled.h3`
   margin-left: 10px;
   align-self: flex-start;
-  @media screen and (max-width: 719px) {
+  @media screen and (max-width: ${screenTabletMin}) {
     align-self: center;
   }
 `;
 
-const SoftSkills = styled.div`
+const SoftSkillsWrapper = styled.div`
   display: flex;
   justify-content: flex-start;
   align-items: flex-start;
   flex-wrap: wrap;
   width: 100%;
-  @media screen and (max-width: 960px) {
+  @media screen and (max-width: ${screenDesktopMin}) {
     justify-content: center;
   }
 `;
@@ -44,11 +45,11 @@ const SoftSkillsCircalBg = styled.path`
   stroke-width: 6;
 `;
 
-export const Styled = {
+export {
   Title,
-  SoftSkills,
+  SoftSkillsWrapper,
   SoftSkillsPersentage,
   SoftSkillsCircularChart,
   SoftSkillsCircle,
-  SoftSkillsCircalBg
+  SoftSkillsCircalBg,
 };

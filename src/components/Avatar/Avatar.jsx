@@ -1,27 +1,25 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import PropTypes from "prop-types";
 import Service from "../../service";
+import {
+  AvatarSign,
+  AvatarWrapper,
+  AvatarPhoto,
+  AvatarFullname,
+} from "./styled";
 
-//Import styles from styled component
-import { Styled } from "./styled";
+const Avatar = (props) => {
+  const [isLoading, setLoading] = useState(true);
+  const [imgsrc, setImageSrc] = useState("");
+  const [capture, setCaptire] = useState("");
+  const [sign, setSign] = useState("");
 
-export default class extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isLoading: true,
-      imgsrc: "",
-      capture: "",
-      sign: "",
-    };
-  }
-  static displayName = "Avatar component";
-
-  componentDidMount() {
+  useEffect(() => {
     const service = new Service();
     const myPhoto = service.getMyPhoto();
     let capture;
     let sign;
-    if (this.props.blog) {
+    if (props.blog) {
       capture = service.getBlogCapture();
       sign = service.getBlogSign();
     } else {
@@ -29,24 +27,25 @@ export default class extends React.Component {
       sign = service.getAboutSign();
     }
 
-    this.setState({
-      isLoading: false,
-      imgsrc: myPhoto,
-      capture: capture,
-      sign: sign,
-    });
-  }
+    setLoading(false);
+    setImageSrc(myPhoto);
+    setCaptire(capture);
+    setSign(sign);
+  }, [props.blog]);
 
-  render() {
-    const output = !this.state.isLoading ? (
-      <Styled.Avatar>
-        <Styled.AvatarPhoto src={this.state.imgsrc} alt="me" />
-        <Styled.AvatarSign>
-          <Styled.AvatarFullname>{this.state.capture}</Styled.AvatarFullname>
-          {this.state.sign}
-        </Styled.AvatarSign>
-      </Styled.Avatar>
-    ) : null;
-    return output;
-  }
-}
+  return !isLoading ? (
+    <AvatarWrapper>
+      <AvatarPhoto src={imgsrc} alt="me" />
+      <AvatarSign>
+        <AvatarFullname>{capture}</AvatarFullname>
+        {sign}
+      </AvatarSign>
+    </AvatarWrapper>
+  ) : null;
+};
+
+Avatar.propTypes = {
+  blog: PropTypes.bool,
+};
+
+export default Avatar;

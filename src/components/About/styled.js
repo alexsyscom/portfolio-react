@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import mapImg from "../../assets/icons/map.png"
+import mapImg from "../../assets/icons/map.png";
 
-const MapSection = styled.section`
+const Map = styled.section`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -11,7 +11,4 @@ const MapSection = styled.section`
   background-size: cover;
   height: 800px;
 `;
-
-export const Styled = {
-    MapSection
-  };
+export default Map;

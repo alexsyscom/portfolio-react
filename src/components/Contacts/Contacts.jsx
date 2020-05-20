@@ -1,61 +1,60 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import PropTypes from "prop-types";
 import Service from "../../service";
+import {
+  Caption,
+  CaptionDecorator,
+  ContactsWrapper,
+  ContactsItems,
+  ContactsItemsItem,
+  ContactsItemsItemLink,
+  ContactsItemsItemImage,
+} from "./styled";
 
-//Import styles from styled component
-import { Styled } from "./styled";
+const Contacts = (props) => {
+  const [isLoading, setLoading] = useState(true);
+  const [contacts, setContacts] = useState([]);
 
-export default class extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isLoading: true,
-      contacts: [],
-    };
-  }
-
-  static displayName = "Contacts";
-
-  componentDidMount() {
+  useEffect(() => {
     const service = new Service();
     const contacts = service.getContacts();
-    this.setState({ isLoading: false, contacts: contacts });
-  }
+    setLoading(false);
+    setContacts(contacts);
+  }, []);
+  const contactsList = !isLoading
+    ? contacts.map((item, index) => {
+        return (
+          <ContactsItemsItem key={index} footer={props.footer}>
+            <ContactsItemsItemImage
+              src={item.img}
+              alt={item.alt}
+              footer={props.footer}
+            />
+            <ContactsItemsItemLink href={item.link} footer={props.footer}>
+              {item.title}
+            </ContactsItemsItemLink>
+          </ContactsItemsItem>
+        );
+      })
+    : null;
 
-  render() {
-    const contactsList = !this.state.isLoading
-      ? this.state.contacts.map((item, index) => {
-          return (
-            <Styled.ContactsItemsItem key={index} footer={this.props.footer}>
-              <Styled.ContactsItemsItemImage
-                src={item.img}
-                alt={item.alt}
-                footer={this.props.footer}
-              />
-              <Styled.ContactsItemsItemLink
-                href={item.link}
-                footer={this.props.footer}
-              >
-                {item.title}
-              </Styled.ContactsItemsItemLink>
-            </Styled.ContactsItemsItem>
-          );
-        })
-      : null;
+  return (
+    <ContactsWrapper footer={props.footer}>
+      {props.title && (
+        <>
+          <Caption>
+            <h2>{props.title}</h2>
+            <CaptionDecorator />
+          </Caption>
+        </>
+      )}
+      <ContactsItems footer={props.footer}>{contactsList}</ContactsItems>
+    </ContactsWrapper>
+  );
+};
 
-    return (
-      <Styled.Contacts footer={this.props.footer}>
-        {this.props.title && (
-          <>
-            <Styled.Caption>
-              <h2>{this.props.title}</h2>
-              <Styled.CaptionDecorator />
-            </Styled.Caption>
-          </>
-        )}
-        <Styled.ContactsItems footer={this.props.footer}>
-          {contactsList}
-        </Styled.ContactsItems>
-      </Styled.Contacts>
-    );
-  }
-}
+Contacts.propTypes = {
+  footer: PropTypes.bool,
+};
+
+export default Contacts;
