@@ -31,6 +31,7 @@ export const GlobalStyle = createGlobalStyle`
     width: -webkit-fill-available;
     background-color: black;
     opacity: 0.6;
+    width: 100%;
   }
 
   main {

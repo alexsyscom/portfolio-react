@@ -3,7 +3,7 @@ import { screenTabletMin } from "../../assets/breakpoints"
 
 
 const CaptionWrapper = styled.div`
-  width: 260px;
+  width: 263px;
   display: flex;
   flex-direction: column;
   align-items: center;

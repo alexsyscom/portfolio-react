@@ -51,6 +51,8 @@ const ContactsItemsItemLink = styled.a`
   color: ${(props) => (props.footer ? "white" : "black")};
 `;
 const ContactsItemsItemImage = styled.img`
+  width: 45px;
+  height: 45px;
   display: ${(props) => (props.footer ? "none" : "block")};
 `;
 
