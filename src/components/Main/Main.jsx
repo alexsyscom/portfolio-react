@@ -1,53 +1,52 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Caption from "../Caption/Caption";
 import SoftSkills from "../SoftSkills/SoftSkills";
 import Service from "../../service";
 
-export default class extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      isLoading: true,
-      myPhoto: "",
-      leftSideData: "",
-      rightSideData: "",
-    };
-  }
-  componentDidMount() {
+//Import styles from styled component
+import {
+  LeftSide,
+  RightSide,
+  LeftSideCaption,
+  AboutMe,
+  AboutMePhoto,
+} from "./styled";
+
+const Main = () => {
+  const [isLoading, setLoading] = useState(true);
+  const [myPhoto, setMyPhoto] = useState("");
+  const [leftSideData, setLeftSideData] = useState("");
+  const [rightSideData, setRightSideData] = useState("");
+
+  useEffect(() => {
     const service = new Service();
     const myPhoto = service.getMyPhoto();
     const leftSideData = service.getLeftSideData();
     const rightSideData = service.getRightSideData();
-    this.setState({
-      isLoading: false,
-      myPhoto: myPhoto,
-      leftSideData: leftSideData,
-      rightSideData: rightSideData,
-    });
-  }
 
-  render() {
-    let output = !this.state.isLoading ? (
-      <main id="main">
-        <section className="left-side">
-          <div className="left-side__caption">
-            <h1>ОБО МНЕ</h1>
-          </div>
-          <div className="about-me">
-            <img
-              src={this.state.myPhoto}
-              alt="This is I am"
-              className="about-me__my-photo"
-            />
-            <Caption conf={this.state.leftSideData} />
-          </div>
-        </section>
-        <section className="right-side">
-          <Caption conf={this.state.rightSideData} />
-          <SoftSkills />
-        </section>
-      </main>
-    ) : null;
-    return output;
-  }
-}
+    setLoading(false);
+    setMyPhoto(myPhoto);
+    setLeftSideData(leftSideData);
+    setRightSideData(rightSideData);
+  }, []);
+
+  return !isLoading ? (
+    <main id="main">
+      <LeftSide>
+        <LeftSideCaption>
+          <h1>ОБО МНЕ</h1>
+        </LeftSideCaption>
+        <AboutMe>
+          <AboutMePhoto src={myPhoto} alt="This is I am" />
+          <Caption conf={leftSideData} />
+        </AboutMe>
+      </LeftSide>
+      <RightSide>
+        <Caption conf={rightSideData} />
+        <SoftSkills />
+      </RightSide>
+    </main>
+  ) : null;
+};
+
+export default Main;

@@ -1,35 +1,32 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
 import Service from "../../service";
 
-export default class extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      isLoading: true,
-      siteMapData: "",
-    };
-  }
-  componentDidMount() {
+import { SiteMapItems, SiteMapItemsItem, WhiteLink } from "./styled";
+
+const Sitemap = () => {
+  const [isLoading, setLoading] = useState(true);
+  const [siteMapData, setSiteMapData] = useState("");
+
+  useEffect(() => {
     const service = new Service();
-    const siteMapData = service.getSitemap();
-    this.setState({
-      isLoading: false,
-      siteMapData: siteMapData,
-    });
-  }
-  render() {
-    const siteMapList = !this.state.isLoading
-      ? this.state.siteMapData.map((item, index) => {
-          return (
-            <li className="site-map__items__item" key={index.toString()}>
-              <Link to={item.link} style={{ color: "white" }}>
-                {item.title}
-              </Link>
-            </li>
-          );
-        })
-      : null;
-    return <ul className="site-map__items">{siteMapList}</ul>;
-  }
-}
+    const Data = service.getSitemap();
+    setLoading(false);
+    setSiteMapData(Data);
+  }, []);
+
+  return (
+    <SiteMapItems>
+      {!isLoading
+        ? siteMapData.map((item, index) => {
+            return (
+              <SiteMapItemsItem key={index.toString()}>
+                <WhiteLink to={item.link}>{item.title}</WhiteLink>
+              </SiteMapItemsItem>
+            );
+          })
+        : null}
+    </SiteMapItems>
+  );
+};
+
+export default Sitemap;

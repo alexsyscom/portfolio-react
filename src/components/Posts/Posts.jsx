@@ -1,85 +1,68 @@
 import React from "react";
+import CreateLinks from "./CreateLinks/CreateLinks";
+import CreatePosts from "./CreatePosts/CreatePosts";
+
+import {
+  MainBlog,
+  MainBlogLiftSide,
+  MainBlogRightSide,
+  BlogTitles,
+} from "./styled";
 
 export default class extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      transformedProps: this.props.posts,
+    };
+  }
+  static displayName = "Posts";
+
+  scrollHandler = () => {
+    let scrollYOffset = window.pageYOffset;
+
+    const temp = this.state.transformedProps.map((item) => {
+      item.isActive = scrollYOffset >= item.start && scrollYOffset < item.end;
+      return item;
+    });
+    this.setState({ transformedProps: temp });
+  };
+
   componentDidMount() {
-    let headerHeight = document.querySelector("header").clientHeight;
-    let linksItems = Array.from(document.querySelectorAll(".blog-items"));
-    let postsItems = Array.from(document.querySelectorAll(".post"));
-    let posts = this.props.posts;
+    let headerHeight = document.querySelector("#root > div:first-child")
+      .clientHeight;
+    let postsItems = Array.from(document.querySelectorAll("[id^=post]"));
+    let posts = this.state.transformedProps;
+
     posts.reduce((prevValue, item, index) => {
       item.start = prevValue;
       item.end = prevValue + postsItems[index].clientHeight;
+      item.isActive = false;
       return prevValue + postsItems[index].clientHeight;
     }, headerHeight);
-    window.addEventListener("scroll", () => {
-      let scrollYOffset = window.pageYOffset;
-      posts.map((item, index) => {
-        if (scrollYOffset >= item.start && scrollYOffset < item.end) {
-          if (!linksItems[index].classList.contains("active")) {
-            linksItems[index].classList.toggle("active");
-          }
-        } else {
-          if (linksItems[index].classList.contains("active")) {
-            linksItems[index].classList.toggle("active");
-          }
-        }
-      });
-    });
+    this.setState({ transformedProps: posts });
+    window.addEventListener("scroll", this.scrollHandler);
   }
 
-  createLinks = () => {
-    let links = this.props.posts.map((item) => {
-      return (
-        <li
-          className="blog-items"
-          key={item.id}
-          ref={(this[`link${item.id}`] = React.createRef())}
-        >
-          <a href={"#post" + item.id}>{item.title}</a>
-        </li>
-      );
-    });
+  componentWillUnmount() {
+    window.removeEventListener("scroll", this.scrollHandler);
+  }
 
-    return links;
-  };
-  getHTML = (content) => {
-    return { __html: content };
-  };
-
-  createPosts = () => {
-    let posts = this.props.posts.map((item) => {
-      return (
-        <div
-          className="post"
-          id={"post" + item.id}
-          key={item.id}
-          ref={(this[`post${item.id}`] = React.createRef())}
-        >
-          <h2>{item.title}</h2>
-          <div className="post-date">{item.date}</div>
-          <div
-            className="post-content"
-            dangerouslySetInnerHTML={this.getHTML(item.content)}
-          />
-        </div>
-      );
-    });
-
-    return posts;
-  };
   render() {
     return (
       <>
-        <main className="main-blog">
-          <section className="main-blog__left-side">
+        <MainBlog>
+          <MainBlogLiftSide>
             <aside>
-              <ul className="blog-titles">{this.createLinks()}</ul>
+              <BlogTitles>
+                <CreateLinks posts={this.state.transformedProps} />
+              </BlogTitles>
             </aside>
-          </section>
-          <section className="main-blog__right-side">
-            {this.createPosts()}
-          </section>
-        </main>
+          </MainBlogLiftSide>
+          <MainBlogRightSide>
+            <CreatePosts posts={this.props.posts} />
+          </MainBlogRightSide>
+        </MainBlog>
       </>
     );
   }

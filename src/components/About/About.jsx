@@ -1,20 +1,27 @@
-import React from "react";
-
-//Import Components
+import React, { useEffect } from "react";
 import Header from "../Header/Header";
 import Main from "../Main/Main";
 import Contacts from "../Contacts/Contacts";
 import Footer from "../Footer/Footer";
+import Map from "./styled"
 
-export default function () {
+
+
+const About = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <>
       <Header />
       <Main />
-      <section className="map">
+      <Map>
         <Contacts title="КОНТАКТЫ" />
         <Footer />
-      </section>
+      </Map>
     </>
   );
 }
+
+export default About;

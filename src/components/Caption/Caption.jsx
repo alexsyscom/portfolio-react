@@ -1,13 +1,22 @@
 import React from "react";
+import PropTypes from "prop-types";
+import { CaptionWrapper, CaptionDecorator, Description } from "./styled";
 
-export default function (props) {
+const Caption = (props) => {
   return (
     <>
-      <div className="caption">
-        <h2 className="caption__title">{props.conf.title}</h2>
-        <div className="caption__decorator"></div>
-      </div>
-      <div className="description">{props.conf.description}</div>
+      <CaptionWrapper>
+        <h2>{props.conf.title}</h2>
+        <CaptionDecorator />
+      </CaptionWrapper>
+      <Description>{props.conf.description}</Description>
     </>
   );
-}
+};
+
+Caption.propTypes = {
+  title: PropTypes.string,
+  description: PropTypes.string,
+};
+
+export default Caption;

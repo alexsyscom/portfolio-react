@@ -3,29 +3,33 @@ import Sitemap from "../Sitemap/Sitemap";
 import SocialNetworks from "../SocialNetworks/SocialNetworks";
 import Contacts from "../Contacts/Contacts";
 
-export default function () {
+//Import styles from styled component
+import {
+  FooterWrapper,
+  FooterDecorator,
+  SiteMap,
+  MessageText,
+  Copyright,
+} from "./styled";
+
+const Footer = () => {
   return (
     <footer>
-      <div className="footer">
-        <div className="some-text">
+      <FooterWrapper>
+        <MessageText>
           Этот сайт я делал в рамках самостоятельного обучения
-        </div>
-        <div className="footer-decorator"></div>
-        <nav className="site-map">
+        </MessageText>
+        <FooterDecorator />
+        <SiteMap>
           <Sitemap />
           <SocialNetworks />
-        </nav>
-        <div className="footer-decorator"></div>
-        <Contacts
-          contactsModificator="contacts_footer"
-          itemsModificator="contacts-items_footer"
-          itemImageModificator="contacts-items__item__image contacts-items__item__image_hidden"
-          itemLinkModificator="contacts-items__item__link contacts-items__item__link_white"
-        />
-      </div>
-      <div className="copyright">
-        &#169; Игнатов Александр | Создано с любовью | 2020
-      </div>
+        </SiteMap>
+        <FooterDecorator />
+        <Contacts footer />
+      </FooterWrapper>
+      <Copyright>&#169; Игнатов Александр | Создано с любовью | 2020</Copyright>
     </footer>
   );
-}
+};
+
+export default Footer;

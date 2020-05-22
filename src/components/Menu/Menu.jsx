@@ -1,64 +1,70 @@
-import React from "react";
-// import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
 import Service from "../../service";
+
+//Import styles from styled component
 import {
-  Menu,
-  MenuItems,
-  StyledLink,
-  StyledUl,
   HeaderTopMenu,
-} from "../../styled-components/styled";
+  MenuWrapper,
+  MenuItems,
+  MenuUl,
+  MenuLink,
+} from "./styled";
 
-export default class extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      isLoading: true,
-      isMenuVisible: false,
-      imgsrc: "",
-    };
-  }
+const Menu = () => {
+  const [isLoading, setLoading] = useState(true);
+  const [isMenuVisible, setMenuVisible] = useState(false);
+  const [imgsrc, setImgsrc] = useState("");
 
-  componentDidMount() {
+  useEffect(() => {
     const service = new Service();
     const imgsrc = service.getMenuLogo();
-    this.setState({
-      isLoading: false,
-      imgsrc: imgsrc,
-    });
-  }
 
-  handlerMouseEnter = () => this.setState({ isMenuVisible: true });
+    setLoading(false);
+    setImgsrc(imgsrc);
+  }, []);
 
-  handlerMouseLeave = () => this.setState({ isMenuVisible: false });
+  return !isLoading ? (
+    <>
+      <HeaderTopMenu
+        onClick={() => {
+          setMenuVisible(true);
+        }}
+      >
+        <img src={imgsrc} alt="menu" />
+      </HeaderTopMenu>
+      <MenuWrapper
+        onMouseLeave={() => {
+          setMenuVisible(false);
+        }}
+        visible={isMenuVisible}
+      >
+        <nav>
+          <MenuUl>
+            <MenuItems>
+              <MenuLink
+                to="/"
+                onClick={() => {
+                  setMenuVisible(false);
+                }}
+              >
+                Главная
+              </MenuLink>
+            </MenuItems>
+            <MenuItems>
+              <MenuLink
+                to="/Blog"
+                onClick={() => {
+                  setMenuVisible(false);
+                }}
+              >
+                Блог
+              </MenuLink>
+            </MenuItems>
+          </MenuUl>
+        </nav>
+      </MenuWrapper>
+    </>
+  ) : null;
+};
 
-  render() {
-    const output = !this.state.isLoading ? (
-      <>
-        <HeaderTopMenu onClick={this.handlerMouseEnter}>
-          <img src={this.state.imgsrc} alt="menu" />
-        </HeaderTopMenu>
-        <Menu
-          onMouseLeave={this.handlerMouseLeave}
-          visible={this.state.isMenuVisible}
-        >
-          <nav>
-            <StyledUl>
-              <MenuItems>
-                <StyledLink to="/" onClick={this.handlerMouseLeave}>
-                  Главная
-                </StyledLink>
-              </MenuItems>
-              <MenuItems>
-                <StyledLink to="/Blog" onClick={this.handlerMouseLeave}>
-                  Блог
-                </StyledLink>
-              </MenuItems>
-            </StyledUl>
-          </nav>
-        </Menu>
-      </>
-    ) : null;
-    return output;
-  }
-}
+export default Menu;

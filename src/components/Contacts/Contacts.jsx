@@ -1,82 +1,60 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import PropTypes from "prop-types";
 import Service from "../../service";
+import {
+  Caption,
+  CaptionDecorator,
+  ContactsWrapper,
+  ContactsItems,
+  ContactsItemsItem,
+  ContactsItemsItemLink,
+  ContactsItemsItemImage,
+} from "./styled";
 
-export default class extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isLoading: true,
-      contacts: [],
-    };
-  }
+const Contacts = (props) => {
+  const [isLoading, setLoading] = useState(true);
+  const [contacts, setContacts] = useState([]);
 
-  static displayName = "Contacts";
-
-  componentDidMount() {
+  useEffect(() => {
     const service = new Service();
     const contacts = service.getContacts();
-    this.setState({ isLoading: false, contacts: contacts });
-  }
+    setLoading(false);
+    setContacts(contacts);
+  }, []);
+  const contactsList = !isLoading
+    ? contacts.map((item, index) => {
+        return (
+          <ContactsItemsItem key={index} footer={props.footer}>
+            <ContactsItemsItemImage
+              src={item.img}
+              alt={item.alt}
+              footer={props.footer}
+            />
+            <ContactsItemsItemLink href={item.link} footer={props.footer}>
+              {item.title}
+            </ContactsItemsItemLink>
+          </ContactsItemsItem>
+        );
+      })
+    : null;
 
-  render() {
-    const contactsList = !this.state.isLoading
-      ? this.state.contacts.map((item, index) => {
-          return (
-            <div
-              className={
-                this.props.itemsModificator
-                  ? "contacts-items__item " + this.props.itemsModificator
-                  : "contacts-items__item"
-              }
-              key={index}
-            >
-              <img
-                src={item.img}
-                alt={item.alt}
-                className={this.props.itemImageModificator}
-              />
-              <a
-                href={item.link}
-                className={
-                  this.props.itemLinkModificator
-                    ? "contacts-items__item__link " +
-                      this.props.itemLinkModificator
-                    : "contacts-items__item__link"
-                }
-              >
-                {item.title}
-              </a>
-            </div>
-          );
-        })
-      : null;
+  return (
+    <ContactsWrapper footer={props.footer}>
+      {props.title && (
+        <>
+          <Caption>
+            <h2>{props.title}</h2>
+            <CaptionDecorator />
+          </Caption>
+        </>
+      )}
+      <ContactsItems footer={props.footer}>{contactsList}</ContactsItems>
+    </ContactsWrapper>
+  );
+};
 
-    return (
-      <div
-        className={
-          this.props.contactsModificator
-            ? "contacts " + this.props.contactsModificator
-            : "contacts"
-        }
-      >
-        {this.props.title && (
-          <>
-            <div className="caption">
-              <h2 className="caption__title">{this.props.title}</h2>
-              <div className="caption__decorator"></div>
-            </div>
-          </>
-        )}
-        <div
-          className={
-            this.props.itemsModificator
-              ? "contacts-items " + this.props.itemsModificator
-              : "contacts-items"
-          }
-        >
-          {contactsList}
-        </div>
-      </div>
-    );
-  }
-}
+Contacts.propTypes = {
+  footer: PropTypes.bool,
+};
+
+export default Contacts;
